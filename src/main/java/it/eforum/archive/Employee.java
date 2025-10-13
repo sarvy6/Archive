@@ -42,6 +42,31 @@ public class Employee {
     public double getGrossSalaryInTheMonth(LocalDate date){
         return calculateSalary(date, grossSalary);
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public double getGrossSalary() {
+        return grossSalary;
+    }
+
+    public double getNetSalary() {
+        return netSalary;
+    }
+
+    public LocalDate getHireDate() {
+        return hireDate;
+    }
+
+    public static int getDaysInAYear() {
+        return daysInAYear;
+    }
+
     private double calculateSalary(LocalDate date, double startSalary){
         updatedayInAYear(date.getYear());
         LocalDate start = LocalDate.of(date.getYear(), date.getMonthValue(), 1);
@@ -97,7 +122,6 @@ public class Employee {
         }
         this.hireDate = hireDate;
     }
-    public double getNetSalary(){return netSalary;}
     @Override
     public boolean equals(Object o) {
         if (this == o) return true; 

@@ -1,6 +1,6 @@
 package it.eforum.archive;
 
-import java.security.PublicKey;
+
 import java.time.LocalDate;
 
 public class PayLip {
@@ -12,11 +12,44 @@ public class PayLip {
     public static PayLip getCheckedInstance(String taxCode, LocalDate creationDate, LocalDate updateDate, LocalDate referenceMonth) {
         return new PayLip(taxCode, creationDate, updateDate, referenceMonth);
     }
+    public PayLip(int id, String taxCode, LocalDate creationDate, LocalDate updateDate, LocalDate referenceMonth, double netSalary, double grossSalary){
+        this(taxCode, creationDate, updateDate, referenceMonth);
+        this.id = id;
+        this.netSalary = netSalary;
+        this.grossSalary = grossSalary;
+    }
     private PayLip(String taxCode, LocalDate creationDate, LocalDate updateDate, LocalDate referenceMonth) {
         setTaxCode(taxCode);
         setCreationDate(creationDate);
         setUpdateDate(updateDate);
         setReferenceMonth(referenceMonth);
+    }
+    public int getId() {
+        return id;
+    }
+
+    public String getTaxCode() {
+        return taxCode;
+    }
+
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
+
+    public LocalDate getUpdateDate() {
+        return updateDate;
+    }
+
+    public LocalDate getReferenceMonth() {
+        return referenceMonth;
+    }
+
+    public double getNetSalary() {
+        return netSalary;
+    }
+
+    public double getGrossSalary() {
+        return grossSalary;
     }
 
     public void setGrossSalary(double grossSalary){
@@ -61,7 +94,6 @@ public class PayLip {
         }
         this.referenceMonth = referenceMonth;
     }
-    public double getNetSalary(){return netSalary;}
     @Override
     public boolean equals(Object o) {
         if (this == o) return true; 
