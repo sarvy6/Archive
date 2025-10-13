@@ -10,6 +10,9 @@ public class Archive {
     public Archive(HashMap<Employee, ArrayList<PayLip>> dictionary){
         this.dictionary = dictionary;
     }
+    public Employee[] getEmployees(){
+        return dictionary.keySet().toArray(new Employee[0]);
+    }
     public void addEmployee(Employee item){
         dictionary.put(item, new ArrayList<>());
     }
@@ -20,12 +23,12 @@ public class Archive {
         dictionary.put(employee, list);
         return null;
     }
-    public String getNetOfYearByEmployee(Employee employee, LocalDate date){
+    public String getNetOfMonthByEmployee(Employee employee, LocalDate date){
         double salary =  employee.getNetSalaryInTheMonth(date);
         return String.format("%s %s ha lo stipendio nel mese %d dell'anno %d di %f",employee.firstName,
          employee.lastName, date.getMonthValue(),date.getYear(), salary);
     }
-    public String getWithheldByEmployee(Employee employee, LocalDate date){
+    public String getWithheldOfMonthByEmployee(Employee employee, LocalDate date){
         double salary = employee.getGrossSalaryInTheMonth(date) - employee.getNetSalaryInTheMonth(date);
         return String.format("%s %s ha la trattenuta nel mese %d dell'anno %d di %f",employee.firstName,
              employee.lastName, date.getMonthValue(),date.getYear(), salary);

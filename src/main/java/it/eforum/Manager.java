@@ -17,13 +17,11 @@ import java.sql.SQLException;
 
 public class Manager {
     private Connection connection;
-    private Archive archive;
     public Manager() throws SQLException{
         String url = "jdbc:mysql://localhost:3306/nomedb";
         String user = "tuo_utente";
         String password = "tua_password";
         connection = DriverManager.getConnection(url, user, password);
-        archive = new Archive(read());
     }
     public String addEmployee(Employee employee) {
         String result = "";
@@ -40,7 +38,6 @@ public class Manager {
             int rowsAffected = pstmt.executeUpdate();
             if (rowsAffected > 0) {
                 result = "azione completata";
-                archive.addEmployee(employee);
             } else {
                 result = "inserimento fallito";
             }
@@ -71,7 +68,6 @@ public class Manager {
             int rowsAffected = pstmt.executeUpdate();
             if (rowsAffected > 0) {
                 result = "azione completata";
-                archive.addPayLip(employee, payLip);
             } else {
                 result = "inserimento fallito";
             }
@@ -82,44 +78,44 @@ public class Manager {
         return result;
     }
     
-    private HashMap<Employee, ArrayList<PayLip>> read() throws SQLException {
-    var dictionary = new HashMap<Employee, ArrayList<PayLip>>();
+    public HashMap<Employee, ArrayList<PayLip>> read() throws SQLException {
+        var dictionary = new HashMap<Employee, ArrayList<PayLip>>();
 
-    String sql = """
-        SELECT e.taxCode, e.firstName, e.lastName, e.grossSalary, e.netSalary, e.hireDate,
-               p.id, p.creationDate, p.updateDate, p.referenceMonth, p.netSalary AS pNetSalary, p.grossSalary AS pGrossSalary
-        FROM employees e
-        JOIN paylips p ON e.taxCode = p.taxCode
-    """;
+        String sql = """
+            SELECT e.taxCode, e.firstName, e.lastName, e.grossSalary, e.netSalary, e.hireDate,
+                p.id, p.creationDate, p.updateDate, p.referenceMonth, p.netSalary AS pNetSalary, p.grossSalary AS pGrossSalary
+            FROM employees e
+            JOIN paylips p ON e.taxCode = p.taxCode
+        """;
 
-    try (Statement statement = connection.createStatement();
-         ResultSet result = statement.executeQuery(sql)) {
+        try (Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(sql)) {
 
-        while (result.next()) {
-            Employee employee = Employee.getCheckedInstance(
-                result.getString("taxCode"),
-                result.getString("firstName"),
-                result.getString("lastName"),
-                result.getDouble("grossSalary"),
-                result.getDouble("netSalary"),
-                result.getDate("hireDate").toLocalDate()
-            );
-            PayLip payLip = new PayLip(
-                result.getInt("id"),
-                result.getString("taxCode"),
-                result.getDate("creationDate").toLocalDate(),
-                result.getDate("updateDate") != null ? result.getDate("updateDate").toLocalDate() : LocalDate.now(),
-                result.getDate("referenceMonth").toLocalDate(),
-                result.getDouble("pNetSalary"),
-                result.getDouble("pGrossSalary")
-            );
+            while (result.next()) {
+                Employee employee = Employee.getCheckedInstance(
+                    result.getString("taxCode"),
+                    result.getString("firstName"),
+                    result.getString("lastName"),
+                    result.getDouble("grossSalary"),
+                    result.getDouble("netSalary"),
+                    result.getDate("hireDate").toLocalDate()
+                );
+                PayLip payLip = new PayLip(
+                    result.getInt("id"),
+                    result.getString("taxCode"),
+                    result.getDate("creationDate").toLocalDate(),
+                    result.getDate("updateDate") != null ? result.getDate("updateDate").toLocalDate() : LocalDate.now(),
+                    result.getDate("referenceMonth").toLocalDate(),
+                    result.getDouble("pNetSalary"),
+                    result.getDouble("pGrossSalary")
+                );
 
-            dictionary.computeIfAbsent(employee, k -> new ArrayList<>()).add(payLip);
+                dictionary.computeIfAbsent(employee, k -> new ArrayList<>()).add(payLip);
+            }
         }
-    }
 
-    return dictionary;
-}
+        return dictionary;
+    }
 
 
 }
