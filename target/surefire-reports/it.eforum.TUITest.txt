@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: it.eforum.TUITest
 -------------------------------------------------------------------------------
-Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.295 s -- in it.eforum.TUITest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.374 s -- in it.eforum.TUITest
