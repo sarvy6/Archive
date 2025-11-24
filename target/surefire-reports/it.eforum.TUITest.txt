@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: it.eforum.TUITest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.124 s <<< FAILURE! -- in it.eforum.TUITest
-it.eforum.TUITest -- Time elapsed: 0.124 s <<< ERROR!
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.129 s <<< FAILURE! -- in it.eforum.TUITest
+it.eforum.TUITest -- Time elapsed: 0.129 s <<< ERROR!
 java.lang.ExceptionInInitializerError
 	at it.eforum.manager.Manager.buildSessionFactory(Manager.java:26)
 	at it.eforum.manager.Manager.<clinit>(Manager.java:13)
