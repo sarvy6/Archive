@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TUITest {
-    
+
     static TUI tui;
     static Employee employee;
     static PaySlip paySlip;
@@ -60,7 +60,10 @@ public class TUITest {
         Response<PaySlip> response = tui.createPaySlip(paySlip);
         assertTrue(response.isSuccess());
         assertNotNull(response.getData());
-        assertEquals(BigDecimal.valueOf(2400), response.getData().getNetSalary());
+
+        BigDecimal expectedNet = BigDecimal.valueOf(2400);
+        BigDecimal actualNet = response.getData().getNetSalary();
+        assertEquals(0, expectedNet.compareTo(actualNet), "NetSalary should be 2400");
     }
 
     @Test
@@ -76,7 +79,10 @@ public class TUITest {
     void testCalculateNetSalary() {
         Response<BigDecimal> response = tui.calculateNetSalary(employee);
         assertTrue(response.isSuccess());
-        assertEquals(BigDecimal.valueOf(2400), response.getData());
+
+        BigDecimal expected = BigDecimal.valueOf(2400);
+        BigDecimal actual = response.getData();
+        assertEquals(0, expected.compareTo(actual), "Calculated net salary mismatch");
     }
 
     @Test
@@ -84,7 +90,10 @@ public class TUITest {
     void testWithheld() {
         Response<BigDecimal> response = tui.withheld(employee);
         assertTrue(response.isSuccess());
-        assertEquals(BigDecimal.valueOf(600), response.getData()); // 3000-2400
+
+        BigDecimal expected = BigDecimal.valueOf(600); // 3000 - 2400
+        BigDecimal actual = response.getData();
+        assertEquals(0, expected.compareTo(actual), "Withheld amount mismatch");
     }
 
     @Test
@@ -92,7 +101,10 @@ public class TUITest {
     void testMaxPaySlipSalary() {
         Response<PaySlip> response = tui.maxPaySlipSalary();
         assertTrue(response.isSuccess());
-        assertEquals(BigDecimal.valueOf(2400), response.getData().getNetSalary());
+
+        BigDecimal expectedNet = BigDecimal.valueOf(2400);
+        BigDecimal actualNet = response.getData().getNetSalary();
+        assertEquals(0, expectedNet.compareTo(actualNet), "Max net salary mismatch");
     }
 
     @Test
