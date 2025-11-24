@@ -1,0 +1,32 @@
+-------------------------------------------------------------------------------
+Test set: it.eforum.TUITest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.124 s <<< FAILURE! -- in it.eforum.TUITest
+it.eforum.TUITest -- Time elapsed: 0.124 s <<< ERROR!
+java.lang.ExceptionInInitializerError
+	at it.eforum.manager.Manager.buildSessionFactory(Manager.java:26)
+	at it.eforum.manager.Manager.<clinit>(Manager.java:13)
+	at it.eforum.manager.TUI.<init>(TUI.java:14)
+	at it.eforum.TUITest.setup(TUITest.java:25)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	Suppressed: java.lang.NoClassDefFoundError: Could not initialize class it.eforum.manager.Manager
+		at it.eforum.TUITest.cleanup(TUITest.java:108)
+		at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+		at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+		at java.base/java.util.Collections$UnmodifiableCollection.forEach(Collections.java:1116)
+		... 1 more
+	Caused by: java.lang.ExceptionInInitializerError: Exception java.lang.ExceptionInInitializerError [in thread "main"]
+		at it.eforum.manager.Manager.buildSessionFactory(Manager.java:26)
+		at it.eforum.manager.Manager.<clinit>(Manager.java:13)
+		at it.eforum.manager.TUI.<init>(TUI.java:14)
+		at it.eforum.TUITest.setup(TUITest.java:25)
+		at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+		... 1 more
+Caused by: org.hibernate.internal.util.config.ConfigurationException: Could not locate cfg.xml resource [hibernate.cfg.xml]
+	at org.hibernate.boot.cfgxml.internal.ConfigLoader.loadConfigXmlResource(ConfigLoader.java:53)
+	at org.hibernate.boot.registry.StandardServiceRegistryBuilder.configure(StandardServiceRegistryBuilder.java:244)
+	at org.hibernate.cfg.Configuration.configure(Configuration.java:358)
+	at it.eforum.manager.Manager.buildSessionFactory(Manager.java:18)
+	... 5 more
+
